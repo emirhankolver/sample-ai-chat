@@ -88,12 +88,6 @@ feel free to open an issue or submit a pull request. I’d love to hear your fee
 
 ---
 
-## 📜 License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
-
 ## 🙏 Acknowledgments
 
 - Thanks to **Jetpack Compose** for making UI development fun and intuitive.
@@ -104,7 +98,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 Let’s build something amazing together! 🚀
 
 **Emirhan Kolver**  
-📧 [emirhankolver@example.com](mailto:emirhanklvr@gmail.com)  
+📧 [emirhanklvr@gmail.com](mailto:emirhanklvr@gmail.com)  
 🔗 [LinkedIn](https://www.linkedin.com/in/emirhankolver/)  
 🐙 [GitHub](https://github.com/emirhankolver)
 
