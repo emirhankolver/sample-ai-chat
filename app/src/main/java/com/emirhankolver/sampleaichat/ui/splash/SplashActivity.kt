@@ -27,7 +27,9 @@ import androidx.compose.ui.unit.sp
 import com.emirhankolver.sampleaichat.R
 import com.emirhankolver.sampleaichat.ui.home.HomeActivity
 import com.emirhankolver.sampleaichat.ui.theme.SampleAIChatTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SplashActivity() : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
