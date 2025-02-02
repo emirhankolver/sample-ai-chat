@@ -56,8 +56,8 @@ class HomeActivity : ComponentActivity() {
     fun BottomNavigationBar(navController: NavHostController) {
         val items = listOf(
             NavigationItem.Home,
-            NavigationItem.Profile,
-            NavigationItem.Settings
+            NavigationItem.History,
+            NavigationItem.Account
         )
         NavigationBar {
             val currentRoute =
@@ -97,8 +97,8 @@ class HomeActivity : ComponentActivity() {
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(NavigationItem.Home.route) { HomeChatScreen() }
-            composable(NavigationItem.Profile.route) { HomeAccountScreen() }
-            composable(NavigationItem.Settings.route) { HomeHistoryScreen() }
+            composable(NavigationItem.History.route) { HomeHistoryScreen() }
+            composable(NavigationItem.Account.route) { HomeAccountScreen() }
         }
     }
 
@@ -116,14 +116,14 @@ class HomeActivity : ComponentActivity() {
             iconResId = R.drawable.ic_chat_outlined,
         )
 
-        data object Profile : NavigationItem(
+        data object History : NavigationItem(
             route = "history",
             label = "History",
             selectedIconResId = R.drawable.ic_history,
             iconResId = R.drawable.ic_history_outlined,
         )
 
-        data object Settings : NavigationItem(
+        data object Account : NavigationItem(
             route = "account",
             label = "Account",
             selectedIconResId = R.drawable.ic_person,
