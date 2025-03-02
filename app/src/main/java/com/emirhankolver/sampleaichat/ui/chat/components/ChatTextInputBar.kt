@@ -59,8 +59,8 @@ fun ChatTextInputBar(
             IconButton(
                 onClick = viewModel::onTapSendButton,
                 colors = IconButtonDefaults.iconButtonColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary,
                     disabledContainerColor = colorBackground,
                     disabledContentColor = colorForeground,
                 ),
