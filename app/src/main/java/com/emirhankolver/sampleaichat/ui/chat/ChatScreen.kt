@@ -60,8 +60,9 @@ fun ChatScreen() {
                     colorForeground = colorForeground,
                 )
                 ChatTextInputBar(
-
-                    colorBackground, colorForeground
+                    viewModel = viewModel,
+                    colorBackground = colorBackground,
+                    colorForeground = colorForeground,
                 )
             }
         }

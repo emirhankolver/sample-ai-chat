@@ -16,15 +16,20 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.emirhankolver.sampleaichat.ui.chat.ChatViewModel
 
 @Composable
 fun ChatTextInputBar(
+    viewModel: ChatViewModel,
     colorBackground: Color,
     colorForeground: Color,
 ) {
+    val input = viewModel.textFieldValue.collectAsState()
+
     Column {
         HorizontalDivider()
         Row(
@@ -32,8 +37,8 @@ fun ChatTextInputBar(
         ) {
             OutlinedTextField(
                 modifier = Modifier.weight(1f),
-                value = "",
-                onValueChange = {},
+                value = input.value,
+                onValueChange = viewModel::onTextFieldValueChange,
                 placeholder = {
                     Text(
                         text = "Ask me anything...",
@@ -43,12 +48,8 @@ fun ChatTextInputBar(
                 textStyle = MaterialTheme.typography.bodyMedium,
                 shape = RoundedCornerShape(12.dp),
                 colors = TextFieldDefaults.colors(
-                    focusedContainerColor = MaterialTheme.colorScheme.primaryContainer.copy(
-                        alpha = .25f,
-                    ),
-                    focusedIndicatorColor = MaterialTheme.colorScheme.primaryContainer.copy(
-                        alpha = .5f,
-                    ),
+                    focusedContainerColor = colorBackground,
+                    focusedIndicatorColor = Color.Transparent,
                     focusedPlaceholderColor = colorForeground,
                     unfocusedContainerColor = colorBackground,
                     unfocusedIndicatorColor = Color.Transparent,
@@ -56,14 +57,14 @@ fun ChatTextInputBar(
                 )
             )
             IconButton(
-                onClick = {},
+                onClick = viewModel::onTapSendButton,
                 colors = IconButtonDefaults.iconButtonColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
                     disabledContainerColor = colorBackground,
                     disabledContentColor = colorForeground,
                 ),
-                enabled = false,
+                enabled = input.value.isNotEmpty(),
                 modifier = Modifier
                     .padding(start = 16.dp)
                     .size(56.dp),
