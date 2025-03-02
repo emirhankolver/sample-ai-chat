@@ -16,14 +16,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.emirhankolver.sampleaichat.R
+import com.emirhankolver.sampleaichat.ui.chat.ChatActivity
 
 @Composable
 fun HomeChatScreen() {
+    val context = LocalContext.current
+
     Scaffold(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
@@ -60,7 +64,9 @@ fun HomeChatScreen() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 24.dp, end = 24.dp, top = 36.dp),
-                onClick = {},
+                onClick = {
+                    ChatActivity.launch(context)
+                },
                 contentPadding = PaddingValues(16.dp)
             ) {
                 Text("Start Chat")
