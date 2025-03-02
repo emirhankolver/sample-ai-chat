@@ -26,13 +26,13 @@ import com.emirhankolver.sampleaichat.ui.theme.SampleAIChatTheme
 
 @Composable
 fun ChatScreen() {
-    val context = LocalContext.current
-    val viewModel = hiltViewModel<ChatViewModel>()
-    val theme = MaterialTheme.colorScheme
-    val colorBackground = theme.onSurface.copy(alpha = .1f)
-    val colorForeground = theme.onSurface.copy(alpha = .6f)
-
     SampleAIChatTheme {
+        val context = LocalContext.current
+        val viewModel = hiltViewModel<ChatViewModel>()
+        val theme = MaterialTheme.colorScheme
+        val colorBackground = theme.surfaceVariant
+        val colorForeground = theme.onSurfaceVariant
+
         Scaffold(
             topBar = {
                 TopAppBar(
