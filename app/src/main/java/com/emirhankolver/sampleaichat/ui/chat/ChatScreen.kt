@@ -31,7 +31,7 @@ import com.emirhankolver.sampleaichat.ui.chat.components.MessageBubble
 import com.emirhankolver.sampleaichat.ui.theme.SampleAIChatTheme
 
 @Composable
-fun ChatScreen() {
+fun ChatScreen(chatId: String) {
     SampleAIChatTheme {
         val context = LocalContext.current
         val listState = rememberLazyListState()
@@ -40,6 +40,10 @@ fun ChatScreen() {
         val colorBackground = theme.surfaceVariant
         val colorForeground = theme.onSurfaceVariant
         val messageList = viewModel.messageList.collectAsState()
+
+        LaunchedEffect(Unit) {
+            viewModel.loadMessages(chatId)
+        }
 
         LaunchedEffect(messageList.value.hashCode()) {
             listState.animateScrollToItem(0)
