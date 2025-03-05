@@ -51,7 +51,7 @@ class ChatViewModel @Inject constructor(
                 chatsDao.insert(
                     ChatEntity(
                         id = chatId ?: "",
-                        name = "New Chat",
+                        name = "New Chat", // TODO Chat name from Server.
                         updatedAt = System.currentTimeMillis(),
                     )
                 )

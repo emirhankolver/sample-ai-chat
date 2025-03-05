@@ -3,8 +3,10 @@
 package com.emirhankolver.sampleaichat.ui.chat
 
 import androidx.activity.ComponentActivity
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -22,6 +24,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -46,7 +49,7 @@ fun ChatScreen(chatId: String) {
         val messageList = viewModel.messageList.collectAsState()
 
         LaunchedEffect(Unit) {
-            viewModel.loadMessages(chatId)
+           viewModel.loadMessages(chatId)
         }
 
         LaunchedEffect(messageList.value.hashCode()) {
@@ -74,14 +77,23 @@ fun ChatScreen(chatId: String) {
             ) {
                 when (messageList.value) {
                     is UIState.Error -> {
-                        ErrorCard(
-                            subtitle = (messageList.value as UIState.Error).message,
-                            onTapRetry = { viewModel.loadMessages(chatId) }
-                        )
+                        Box(Modifier.weight(1f), contentAlignment = Alignment.Center) {
+                            ErrorCard(
+                                subtitle = (messageList.value as UIState.Error).message,
+                                onTapRetry = { viewModel.loadMessages(chatId) }
+                            )
+                        }
                     }
 
                     is UIState.Loading -> {
-                        CircularProgressIndicator()
+                        Box(
+                            Modifier
+                                .weight(1f)
+                                .fillMaxWidth(),
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            CircularProgressIndicator()
+                        }
                     }
 
                     is UIState.Success -> {
