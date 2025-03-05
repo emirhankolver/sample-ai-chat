@@ -27,6 +27,12 @@
 
         <activity
             android:name=".ui.home.HomeActivity"
+            android:theme="@style/Theme.SampleAIChat"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.chat.ChatActivity"
+            android:theme="@style/Theme.SampleAIChat"
             android:exported="false" />
     </application>
 
