@@ -6,6 +6,7 @@ import androidx.compose.material3.ColorScheme
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.dp
+import com.emirhankolver.sampleaichat.data.local.entities.MessageEntity
 
 data class MessageBubbleStyle(
     val colorBackground: Color,
@@ -14,7 +15,7 @@ data class MessageBubbleStyle(
     val shape: Shape,
 ) {
     companion object {
-        fun create(detail: MessageDetail, colorScheme: ColorScheme): MessageBubbleStyle {
+        fun create(detail: MessageEntity, colorScheme: ColorScheme): MessageBubbleStyle {
             return if (detail.isUserCreated) {
                 MessageBubbleStyle(
                     colorScheme.primary,

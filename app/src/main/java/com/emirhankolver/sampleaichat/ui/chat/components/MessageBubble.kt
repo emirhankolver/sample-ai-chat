@@ -9,13 +9,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.emirhankolver.sampleaichat.data.local.entities.MessageEntity
 import com.emirhankolver.sampleaichat.model.MessageBubbleStyle
-import com.emirhankolver.sampleaichat.model.MessageDetail
 
 @Composable
 fun MessageBubble(
     modifier: Modifier = Modifier,
-    message: MessageDetail,
+    message: MessageEntity,
 ) {
     val style = MessageBubbleStyle.create(
         message,
