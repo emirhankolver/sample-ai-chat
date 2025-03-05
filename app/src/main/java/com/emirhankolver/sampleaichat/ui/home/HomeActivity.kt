@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -25,7 +26,9 @@ import com.emirhankolver.sampleaichat.ui.home.account.HomeAccountScreen
 import com.emirhankolver.sampleaichat.ui.home.chat.HomeChatScreen
 import com.emirhankolver.sampleaichat.ui.home.history.HomeHistoryScreen
 import com.emirhankolver.sampleaichat.ui.theme.SampleAIChatTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -92,9 +95,9 @@ class HomeActivity : ComponentActivity() {
     @Composable
     fun NavHostContainer(navController: NavHostController, innerPadding: PaddingValues) {
         NavHost(
+            modifier = Modifier.fillMaxSize().padding(innerPadding),
             navController = navController,
             startDestination = NavigationItem.Home.route,
-            modifier = Modifier.padding(innerPadding)
         ) {
             composable(NavigationItem.Home.route) { HomeChatScreen() }
             composable(NavigationItem.History.route) { HomeHistoryScreen() }
