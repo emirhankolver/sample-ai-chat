@@ -12,4 +12,11 @@ interface MessagesDao {
 
     @Query("SELECT * FROM messages WHERE chatId = :chatId ORDER BY timestamp DESC")
     suspend fun getAll(chatId: String): List<MessageEntity>
+
+    @Query("DELETE FROM messages WHERE id = :chatId")
+    suspend fun deleteMessages(chatId: String)
+
+
+    @Query("DELETE FROM messages")
+    suspend fun deleteAll()
 }
