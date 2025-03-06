@@ -8,6 +8,7 @@ import com.emirhankolver.sampleaichat.data.local.entities.ChatEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -40,6 +41,12 @@ class HistoryViewModel @Inject constructor(
     fun deleteAllChats() = viewModelScope.launch(Dispatchers.IO) {
         chatsDao.deleteAll()
         messagesDao.deleteAll()
+    }
+
+    fun deleteChat(chat: ChatEntity) = viewModelScope.launch(Dispatchers.IO) {
+        delay(250)
+        chatsDao.delete(chat.id)
+        messagesDao.deleteMessages(chat.id)
     }
 
     fun showDialog() {

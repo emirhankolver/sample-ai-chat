@@ -53,7 +53,8 @@ fun HomeHistoryScreen() {
                 actions = {
                     if (listState.value.isEmpty()
                         && searchQuery.value.isEmpty()
-                        && !showSearchBar.value) {
+                        && !showSearchBar.value
+                    ) {
                         return@CenterAlignedTopAppBar
                     }
                     IconButton(onClick = viewModel::triggerSearchBar) {
@@ -104,6 +105,7 @@ fun HomeHistoryScreen() {
                         subtitle = "Start a chat and your history will appear here!",
                     )
                 }
+
                 listState.value.isEmpty() && showSearchBar.value -> {
                     EmptyListPlaceholder(
                         emoji = "🔍",
@@ -157,9 +159,13 @@ fun HomeHistoryScreen() {
                     items = listState.value,
                     key = { item -> item.id }
                 ) { history ->
-                    HistoryCard(history) { selectedHistory ->
-                        ChatActivity.startActivity(context, selectedHistory.id)
-                    }
+                    HistoryCard(
+                        history,
+                        onClick = { selectedHistory ->
+                            ChatActivity.startActivity(context, selectedHistory.id)
+                        },
+                        onRemove = { chat -> viewModel.deleteChat(chat) },
+                    )
                 }
             }
         }
