@@ -43,7 +43,7 @@ class ChatViewModel @Inject constructor(
     }
 
     fun onTapSendButton() = viewModelScope.launch(Dispatchers.IO) {
-        if ((messageList.value !is UIState.Success) || chatId == null) {
+        if ((messageList.value !is UIState.Success) || chatId == null ) {
             return@launch
         }
         try {
@@ -51,7 +51,7 @@ class ChatViewModel @Inject constructor(
                 chatsDao.insert(
                     ChatEntity(
                         id = chatId ?: "",
-                        name = "New Chat", // TODO Chat name from Server.
+                        name = textFieldValue.value.take(30), // TODO Chat name from Server.
                         updatedAt = System.currentTimeMillis(),
                     )
                 )

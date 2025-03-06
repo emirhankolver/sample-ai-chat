@@ -25,7 +25,7 @@ class ChatActivity : ComponentActivity() {
     companion object {
         private const val EXTRA_CHAT_ID: String = "EXTRA_CHAT_ID"
 
-        fun launch(context: Context, chatId: String? = null) {
+        fun startActivity(context: Context, chatId: String? = null) {
             val intent = Intent(
                 context,
                 ChatActivity::class.java,
