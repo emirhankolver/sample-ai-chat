@@ -76,7 +76,7 @@ fun HomeHistoryScreen() {
     ) {
         Box(
             Modifier
-                .padding(it)
+                .padding(top = it.calculateTopPadding())
                 .padding(horizontal = 20.dp)
         ) {
             when (val state = listState.value) {
