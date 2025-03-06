@@ -24,7 +24,7 @@ class HistoryViewModel @Inject constructor(
         loadChatList()
     }
 
-    private fun loadChatList() = viewModelScope.launch(Dispatchers.IO) {
+     fun loadChatList() = viewModelScope.launch(Dispatchers.IO) {
         try {
             _chatListFlow.value = UIState.Success(chatsDao.getAll())
         } catch (t:Throwable) {

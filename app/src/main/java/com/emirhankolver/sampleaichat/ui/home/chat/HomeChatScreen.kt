@@ -65,7 +65,7 @@ fun HomeChatScreen() {
                     .fillMaxWidth()
                     .padding(start = 24.dp, end = 24.dp, top = 36.dp),
                 onClick = {
-                    ChatActivity.launch(context)
+                    ChatActivity.startActivity(context)
                 },
                 contentPadding = PaddingValues(16.dp)
             ) {
