@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.emirhankolver.sampleaichat.data.local.entities.MessageEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MessagesDao {
@@ -11,7 +12,7 @@ interface MessagesDao {
     suspend fun insert(chat: MessageEntity)
 
     @Query("SELECT * FROM messages WHERE chatId = :chatId ORDER BY timestamp DESC")
-    suspend fun getAll(chatId: String): List<MessageEntity>
+     fun getAll(chatId: String): Flow<List<MessageEntity>>
 
     @Query("DELETE FROM messages WHERE id = :chatId")
     suspend fun deleteMessages(chatId: String)

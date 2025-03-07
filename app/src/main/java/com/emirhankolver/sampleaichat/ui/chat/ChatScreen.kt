@@ -43,14 +43,14 @@ fun ChatScreen(chatId: String) {
         val context = LocalContext.current
         val listState = rememberLazyListState()
         val viewModel = hiltViewModel<ChatViewModel>()
+        LaunchedEffect(Unit) {
+            viewModel.loadMessages(chatId)
+        }
+
         val theme = MaterialTheme.colorScheme
         val colorBackground = theme.surfaceVariant
         val colorForeground = theme.onSurfaceVariant
         val messageList = viewModel.messageList.collectAsState()
-
-        LaunchedEffect(Unit) {
-           viewModel.loadMessages(chatId)
-        }
 
         LaunchedEffect(messageList.value.hashCode()) {
             listState.animateScrollToItem(0)
@@ -75,54 +75,30 @@ fun ChatScreen(chatId: String) {
                     .padding(it)
                     .fillMaxSize()
             ) {
-                when (messageList.value) {
-                    is UIState.Error -> {
-                        Box(Modifier.weight(1f), contentAlignment = Alignment.Center) {
-                            ErrorCard(
-                                subtitle = (messageList.value as UIState.Error).message,
-                                onTapRetry = { viewModel.loadMessages(chatId) }
-                            )
-                        }
-                    }
 
-                    is UIState.Loading -> {
-                        Box(
-                            Modifier
-                                .weight(1f)
-                                .fillMaxWidth(),
-                            contentAlignment = Alignment.Center,
-                        ) {
-                            CircularProgressIndicator()
-                        }
-                    }
-
-                    is UIState.Success -> {
-                        val list = (messageList.value as UIState.Success<List<MessageEntity>>).data
-                        if (list.isEmpty()) {
-                            CapabilitiesPlaceholder(
-                                modifier = Modifier
-                                    .padding(horizontal = 20.dp)
-                                    .weight(1f),
-                                colorBackground = colorBackground,
-                                colorForeground = colorForeground,
-                            )
-                        } else {
-                            LazyColumn(
-                                modifier = Modifier.weight(1f),
-                                reverseLayout = true,
-                                state = listState,
-                            ) {
-                                items(
-                                    items = list,
-                                    key = { message -> message.id },
-                                    itemContent = { message ->
-                                        MessageBubble(
-                                            message = message,
-                                        )
-                                    }
+                if (messageList.value.isEmpty()) {
+                    CapabilitiesPlaceholder(
+                        modifier = Modifier
+                            .padding(horizontal = 20.dp)
+                            .weight(1f),
+                        colorBackground = colorBackground,
+                        colorForeground = colorForeground,
+                    )
+                } else {
+                    LazyColumn(
+                        modifier = Modifier.weight(1f),
+                        reverseLayout = true,
+                        state = listState,
+                    ) {
+                        items(
+                            items = messageList.value,
+                            key = { message -> message.id },
+                            itemContent = { message ->
+                                MessageBubble(
+                                    message = message,
                                 )
                             }
-                        }
+                        )
                     }
                 }
                 ChatTextInputBar(
