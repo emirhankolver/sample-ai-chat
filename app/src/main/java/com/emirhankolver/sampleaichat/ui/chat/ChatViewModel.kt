@@ -1,6 +1,5 @@
 package com.emirhankolver.sampleaichat.ui.chat
 
-import android.icu.text.DateFormat
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,6 +7,7 @@ import com.emirhankolver.sampleaichat.data.local.dao.ChatsDao
 import com.emirhankolver.sampleaichat.data.local.dao.MessagesDao
 import com.emirhankolver.sampleaichat.data.local.entities.ChatEntity
 import com.emirhankolver.sampleaichat.data.local.entities.MessageEntity
+import com.emirhankolver.sampleaichat.domain.AIUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -26,6 +26,7 @@ import javax.inject.Inject
 class ChatViewModel @Inject constructor(
     private val messagesDao: MessagesDao,
     private val chatsDao: ChatsDao,
+    private val aiUseCase: AIUseCase,
 ) : ViewModel() {
     private val chatId = MutableStateFlow("")
     private val _textFieldValue = MutableStateFlow("")
@@ -62,7 +63,7 @@ class ChatViewModel @Inject constructor(
                 chatId = chatId.value,
             )
             val serverResponse = MessageEntity(
-                message = DateFormat.getDateTimeInstance().format(System.currentTimeMillis()),
+                message = "",
                 id = UUID.randomUUID().toString(),
                 isUserCreated = false,
                 chatId = chatId.value,
@@ -74,7 +75,7 @@ class ChatViewModel @Inject constructor(
             messagesDao.insert(userQuery)
             delay(250)
             messagesDao.insert(serverResponse)
-
+            aiUseCase.postQuery(textFieldValue.value, serverResponse.id)
             _textFieldValue.value = ""
         } catch (t: Throwable) {
             Log.e(TAG, "onTapSendButton: ", t)
