@@ -1,14 +1,19 @@
 package com.emirhankolver.sampleaichat.ui.home.account
 
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowRight
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.rounded.AccountCircle
+import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material.icons.rounded.Star
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -20,8 +25,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.emirhankolver.sampleaichat.R
 import com.emirhankolver.sampleaichat.ui.home.account.components.AccountOptionRow
 import com.emirhankolver.sampleaichat.ui.home.account.components.FeatureCard
 import com.emirhankolver.sampleaichat.ui.home.account.components.TitleDivider
@@ -30,6 +39,8 @@ import com.emirhankolver.sampleaichat.ui.home.account.components.TitleDivider
 @Composable
 fun HomeAccountScreen() {
     val viewModel = hiltViewModel<AccountViewModel>()
+    val scrollState = rememberScrollState()
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -40,6 +51,8 @@ fun HomeAccountScreen() {
     ) {
         Column(
             modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(scrollState)
                 .padding(it)
                 .padding(horizontal = 20.dp)
         ) {
@@ -82,36 +95,36 @@ fun HomeAccountScreen() {
             TitleDivider("General")
             AccountOptionRow(
                 title = "Personal Info",
-                iconStart = Icons.Outlined.Person,
+                iconStart = painterResource(R.drawable.ic_person_outlined),
             )
             AccountOptionRow(
                 title = "Security",
-                iconStart = Icons.Outlined.Person,
+                iconStart = painterResource(R.drawable.ic_security_outlined),
             )
             AccountOptionRow(
                 title = "Language",
-                iconStart = Icons.Outlined.Person,
+                iconStart = painterResource(R.drawable.ic_text_outlined),
             )
             AccountOptionRow(
                 title = "Dark Mode",
-                iconStart = Icons.Outlined.Person,
+                iconStart = painterResource(R.drawable.ic_dark_mode_outlined),
             )
             TitleDivider("About")
             AccountOptionRow(
                 title = "Help Center",
-                iconStart = Icons.Outlined.Person,
+                iconStart = painterResource(R.drawable.ic_text_outlined),
             )
             AccountOptionRow(
                 title = "Privacy Policy",
-                iconStart = Icons.Outlined.Person,
+                iconStart = painterResource(R.drawable.ic_privacy_policy_outlined),
             )
             AccountOptionRow(
                 title = "About SampleAI",
-                iconStart = Icons.Outlined.Person,
+                iconStart = painterResource(R.drawable.ic_info_outlined),
             )
             AccountOptionRow(
                 title = "Logout",
-                iconStart = Icons.Outlined.Person,
+                iconStart = painterResource(R.drawable.ic_logout_outlined),
             )
         }
     }
