@@ -2,6 +2,7 @@ package com.emirhankolver.sampleaichat.ui.chat.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -30,10 +31,10 @@ fun ChatTextInputBar(
 ) {
     val input = viewModel.textFieldValue.collectAsState()
 
-    Column {
+    Column(Modifier.imePadding()) {
         HorizontalDivider()
         Row(
-            Modifier.padding(vertical = 20.dp, horizontal = 20.dp)
+            Modifier.padding(top = 20.dp, start = 20.dp, end = 20.dp)
         ) {
             OutlinedTextField(
                 modifier = Modifier.weight(1f),

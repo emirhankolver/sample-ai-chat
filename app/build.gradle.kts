@@ -81,6 +81,7 @@ dependencies {
     // Etc.
     implementation(libs.compose.shimmer)
     implementation(libs.androidx.material)
+    implementation(libs.compose.markdown)
 
 
 

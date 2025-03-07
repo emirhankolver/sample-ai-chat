@@ -1,6 +1,7 @@
 package com.emirhankolver.sampleaichat.domain.ai
 
-import kotlinx.coroutines.flow.Flow
+import okhttp3.ResponseBody
+import retrofit2.Call
 import javax.inject.Inject
 
 class AIRepository @Inject constructor(
@@ -8,7 +9,7 @@ class AIRepository @Inject constructor(
 ) {
     fun postQuery(
         prompt: String,
-    ): Flow<String> {
+    ): Call<ResponseBody> {
         return dataSource.postQuery(prompt)
     }
 }

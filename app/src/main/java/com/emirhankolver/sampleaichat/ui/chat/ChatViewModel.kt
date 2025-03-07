@@ -15,7 +15,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.util.UUID
@@ -55,7 +57,6 @@ class ChatViewModel @Inject constructor(
                     )
                 )
             }
-            val list = messageList.value.toMutableList()
             val userQuery = MessageEntity(
                 message = textFieldValue.value,
                 id = UUID.randomUUID().toString(),
@@ -69,13 +70,13 @@ class ChatViewModel @Inject constructor(
                 chatId = chatId.value,
             )
 
-            list.add(0, userQuery)
-            list.add(0, serverResponse)
-
-            messagesDao.insert(userQuery)
-            delay(250)
             messagesDao.insert(serverResponse)
+            delay(100)
+            messagesDao.insert(userQuery)
             aiUseCase.postQuery(textFieldValue.value, serverResponse.id)
+                .catch {
+                    Log.e(TAG, "onTapSendButton: ", it)
+                }.launchIn(viewModelScope)
             _textFieldValue.value = ""
         } catch (t: Throwable) {
             Log.e(TAG, "onTapSendButton: ", t)
