@@ -1,0 +1,16 @@
+POST http://localhost:3000/api/v1/ai/query
+Content-Type: application/json
+
+{
+  "prompt": "How would you explain Jetpack Compose to a 5-year-old?",
+  "messageHistory": [
+    {
+      "isUserCreated": false,
+      "message": "Hi! I'm SampleAl, your friendly and helpful assistant..."
+    },
+    {
+      "isUserCreated": true,
+      "message": "Hi! Can you introduce yourself?"
+    }
+  ]
+}
