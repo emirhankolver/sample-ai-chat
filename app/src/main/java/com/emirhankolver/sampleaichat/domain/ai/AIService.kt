@@ -1,17 +1,17 @@
 package com.emirhankolver.sampleaichat.domain.ai
 
-import kotlinx.coroutines.flow.Flow
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
+import com.emirhankolver.sampleaichat.model.QueryRequest
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.http.Body
 import retrofit2.http.POST
 import retrofit2.http.Streaming
 
 interface AIService {
 
-    @FormUrlEncoded
     @POST("api/v1/ai/query")
     @Streaming
     fun postQuery(
-        @Field("prompt") prompt: String
-    ): Flow<String>
+        @Body requestBody: QueryRequest
+    ): Call<ResponseBody>
 }

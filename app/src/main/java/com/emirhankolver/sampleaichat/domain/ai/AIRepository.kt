@@ -1,14 +1,16 @@
 package com.emirhankolver.sampleaichat.domain.ai
 
-import kotlinx.coroutines.flow.Flow
+import com.emirhankolver.sampleaichat.model.QueryRequest
+import okhttp3.ResponseBody
+import retrofit2.Call
 import javax.inject.Inject
 
 class AIRepository @Inject constructor(
     private val dataSource: AIDataSource
 ) {
     fun postQuery(
-        prompt: String,
-    ): Flow<String> {
-        return dataSource.postQuery(prompt)
+        requestBody: QueryRequest
+    ): Call<ResponseBody> {
+        return dataSource.postQuery(requestBody)
     }
 }

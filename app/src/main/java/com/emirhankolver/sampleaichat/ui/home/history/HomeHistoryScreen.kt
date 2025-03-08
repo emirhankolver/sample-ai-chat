@@ -162,7 +162,11 @@ fun HomeHistoryScreen() {
                     HistoryCard(
                         history,
                         onClick = { selectedHistory ->
-                            ChatActivity.startActivity(context, selectedHistory.id)
+                            ChatActivity.startActivity(
+                                context,
+                                selectedHistory.id,
+                                selectedHistory.name,
+                            )
                         },
                         onRemove = { chat -> viewModel.deleteChat(chat) },
                     )

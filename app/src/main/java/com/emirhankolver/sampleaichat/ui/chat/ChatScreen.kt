@@ -3,17 +3,14 @@
 package com.emirhankolver.sampleaichat.ui.chat
 
 import androidx.activity.ComponentActivity
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -24,21 +21,17 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.emirhankolver.sampleaichat.data.local.entities.MessageEntity
-import com.emirhankolver.sampleaichat.model.UIState
 import com.emirhankolver.sampleaichat.ui.chat.components.CapabilitiesPlaceholder
 import com.emirhankolver.sampleaichat.ui.chat.components.ChatTextInputBar
 import com.emirhankolver.sampleaichat.ui.chat.components.MessageBubble
-import com.emirhankolver.sampleaichat.ui.components.ErrorCard
 import com.emirhankolver.sampleaichat.ui.theme.SampleAIChatTheme
 
 @Composable
-fun ChatScreen(chatId: String) {
+fun ChatScreen(chatId: String, chatName: String?) {
     SampleAIChatTheme {
         val context = LocalContext.current
         val listState = rememberLazyListState()
@@ -60,7 +53,7 @@ fun ChatScreen(chatId: String) {
             topBar = {
                 TopAppBar(
                     title = {
-                        Text("New Chat")
+                        Text(chatName ?: "New Chat")
                     },
                     navigationIcon = {
                         IconButton(onClick = { (context as ComponentActivity?)?.finish() }) {
