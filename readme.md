@@ -1,5 +1,8 @@
 # Sample AI Chat Application 🤖💬
 
+<img width="1600" alt="2" src="https://github.com/user-attachments/assets/cdde9a59-ea97-4038-a0a6-c79a2fc8838a" />
+
+
 Welcome to the **Sample AI Chat Application**! This project is a showcase of my skills in Android
 development using **Kotlin** and **Jetpack Compose**. It’s designed to demonstrate my ability to
 build modern, clean, and scalable Android applications. Whether you're a recruiter, fellow
@@ -46,7 +49,7 @@ Here’s a quick overview of the technologies and libraries used in this project
 - **MVVM Architecture**: For clean and maintainable code.
 - **Hilt**: For dependency injection.
 - **Room**: For local database storage.
-- **Retrofit**: For network operations (if applicable).
+- **Retrofit**: For network operations.
 - **Coroutines**: For asynchronous programming.
 - **LiveData/StateFlow**: For reactive UI updates.
 
@@ -61,12 +64,6 @@ The project is organized into the following packages for better readability and 
 - **ui**: All UI-related components, including composables and view models.
 - **model**: Data models and entities.
 - **utils**: Utility classes and extensions.
-
----
-
-## 🎨 Screenshots
-
-*(Add screenshots of the app here once it’s ready!)*
 
 ---
 
