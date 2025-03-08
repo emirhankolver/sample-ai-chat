@@ -38,6 +38,14 @@ code reusability, testability, and overall app performance.
 The app uses **Room** for local data persistence. This ensures that chat history and other important
 data are stored securely and efficiently on the device.
 
+### 4. **Dark Mode** 🌙
+
+The app uses Material3 color palette efficiently to provide a seamless dark mode experience. 
+It automatically adapts to the system theme and ensures a comfortable viewing experience in 
+low-light environments.
+
+<img width="1600" alt="Frame 6" src="https://github.com/user-attachments/assets/4c55beb5-3875-4c12-8258-d01023fa6184" />
+
 ---
 
 ## 🚀 Tech Stack
@@ -72,9 +80,18 @@ The project is organized into the following packages for better readability and 
 1. Clone the repository:
    ```bash
    git clone https://github.com/emirhankolver/sample-ai-chat-app.git
-   ```  
-2. Open the project in **Android Studio**.
-3. Build and run the app on an emulator or physical device.
+   ```
+   
+2. Navigate to the `/backend` folder:
+   ```bash
+   cd backend
+   ```
+
+3. Build and run the backend server. [See more details in the backend README](/backend/README.md).
+
+4. Open the project in **Android Studio**.
+
+5. Build and run the Android app.
 
 ---
 
