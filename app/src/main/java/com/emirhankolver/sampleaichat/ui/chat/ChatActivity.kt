@@ -17,20 +17,23 @@ class ChatActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ChatScreen(
-                intent.getStringExtra(EXTRA_CHAT_ID)!!
+                intent.getStringExtra(EXTRA_CHAT_ID)!!,
+                intent.getStringExtra(EXTRA_CHAT_NAME)
             )
         }
     }
 
     companion object {
         private const val EXTRA_CHAT_ID: String = "EXTRA_CHAT_ID"
+        private const val EXTRA_CHAT_NAME: String = "EXTRA_CHAT_NAME"
 
-        fun startActivity(context: Context, chatId: String? = null) {
+        fun startActivity(context: Context, chatId: String? = null, chatName: String? = null) {
             val intent = Intent(
                 context,
                 ChatActivity::class.java,
             )
             intent.putExtra(EXTRA_CHAT_ID, chatId ?: UUID.randomUUID().toString())
+            intent.putExtra(EXTRA_CHAT_NAME, chatName)
             context.startActivity(
                 intent
             )
