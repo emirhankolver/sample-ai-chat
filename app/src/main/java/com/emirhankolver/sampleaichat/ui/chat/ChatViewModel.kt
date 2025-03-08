@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import okhttp3.internal.toImmutableList
 import java.util.UUID
 import javax.inject.Inject
 
@@ -57,6 +58,8 @@ class ChatViewModel @Inject constructor(
                     )
                 )
             }
+            val history = messageList.value.toImmutableList()
+
             val userQuery = MessageEntity(
                 message = textFieldValue.value,
                 id = UUID.randomUUID().toString(),
@@ -73,7 +76,7 @@ class ChatViewModel @Inject constructor(
             messagesDao.insert(serverResponse)
             delay(100)
             messagesDao.insert(userQuery)
-            aiUseCase.postQuery(textFieldValue.value, serverResponse.id)
+            aiUseCase.postQuery(textFieldValue.value, serverResponse.id, history)
                 .catch {
                     Log.e(TAG, "onTapSendButton: ", it)
                 }.launchIn(viewModelScope)

@@ -3,6 +3,8 @@ package com.emirhankolver.sampleaichat.ui.chat.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -18,10 +20,19 @@ fun MessageBubble(
     modifier: Modifier = Modifier,
     message: MessageEntity,
 ) {
+
     val style = MessageBubbleStyle.create(
         message,
         MaterialTheme.colorScheme,
     )
+
+    if (message.message.isEmpty()) {
+        return CircularProgressIndicator(
+            modifier = modifier
+                .padding(style.paddingValues)
+                .size(36.dp)
+        )
+    }
 
     MarkdownText(
         modifier = modifier

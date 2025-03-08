@@ -1,7 +1,9 @@
 package com.emirhankolver.sampleaichat.domain
 
 import com.emirhankolver.sampleaichat.data.local.dao.MessagesDao
+import com.emirhankolver.sampleaichat.data.local.entities.MessageEntity
 import com.emirhankolver.sampleaichat.domain.ai.AIRepository
+import com.emirhankolver.sampleaichat.model.QueryRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.flow.flow
@@ -14,51 +16,30 @@ class AIUseCase @Inject constructor(
     private val repository: AIRepository,
     private val messagesDao: MessagesDao,
 ) {
-    private val TAG = "AIUseCase"
-
 
     fun postQuery(
         prompt: String,
-        messageId: String
-    ) = flow<String> {
-        val response = repository.postQuery(prompt).execute()
+        messageId: String,
+        messageHistory: List<MessageEntity> = emptyList(),
+    ) = flow {
+        val response = repository.postQuery(
+            QueryRequest(
+                prompt, messageHistory.reversed()
+            )
+        ).execute()
 
         if (response.isSuccessful) {
             val input = response.body()?.byteStream()?.bufferedReader() ?: throw Exception()
 
             try {
-                val stringBuilder = StringBuilder()
                 var responseText = ""
-
                 while (currentCoroutineContext().isActive) {
-                    val char = input.read().toChar() // Read byte and convert to char
-
-                    if (char == Char.MIN_VALUE) break // End of stream
-
-                    if (char.isWhitespace()) {
-                        // If newline (`\n`), emit it separately
-                        if (char == '\n') {
-                            if (stringBuilder.isNotEmpty()) {
-                                val word = stringBuilder.toString()
-                                responseText += "$word "
-                                messagesDao.updateMessage(messageId, responseText)
-                                emit(word)
-                                stringBuilder.clear()
-                            }
-                            responseText += "\n"
-                            messagesDao.updateMessage(messageId, responseText)
-                            emit("\n")
-                        } else if (stringBuilder.isNotEmpty()) {
-                            // Emit word when encountering space or tab
-                            val word = stringBuilder.toString()
-                            responseText += "$word "
-                            messagesDao.updateMessage(messageId, responseText)
-                            emit(word)
-                            stringBuilder.clear()
-                        }
-                    } else {
-                        stringBuilder.append(char)
-                    }
+                    val charCode = input.read()
+                    if (charCode == -1) break
+                    val char = charCode.toChar()
+                    responseText += char
+                    messagesDao.updateMessage(messageId, responseText)
+                    emit(responseText)
                 }
             } catch (e: Throwable) {
                 throw Exception(e)
@@ -68,8 +49,5 @@ class AIUseCase @Inject constructor(
         } else {
             throw HttpException(response)
         }
-    }
-
-
-        .flowOn(Dispatchers.IO)
+    }.flowOn(Dispatchers.IO)
 }
